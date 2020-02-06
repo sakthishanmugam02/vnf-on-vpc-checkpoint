@@ -50,15 +50,3 @@ resource "ibm_is_instance" "f5_vsi" {
   }
 }
 
-data "external" "delete_custom_image" {
-  depends_on = ["ibm_is_instance.f5_vsi"]
-  program    = ["bash", "${path.module}/scripts/delete_custom_image.sh"]
-
-  query = {
-    custom_image_id      = "${module.f5_vnf_image.custom_image_id}"
-    ibmcloud_endpoint    = "${var.ibmcloud_endpoint}"
-    ibmcloud_svc_api_key = "6ob7CwRoZBHnrz3JKZkF5wJ_JRsHaF2F1dxIV72-SMdq"
-    region               = "${data.ibm_is_region.region.name}"
-  }
-}
-
